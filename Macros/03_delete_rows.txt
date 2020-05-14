@@ -1,0 +1,15 @@
+Sub delete_rows()
+'run the macro in the column to the immediate right
+'of the disaggregated data
+Do Until ActiveCell.Offset(0, -1).Value = ""
+    If ActiveCell.Value = 0 Or ActiveCell.Value = "" Then
+        Selection.EntireRow.Delete
+    Else
+        ActiveCell.Offset(1, 0).Select
+    End If
+Loop
+End Sub
+
+
+
+
