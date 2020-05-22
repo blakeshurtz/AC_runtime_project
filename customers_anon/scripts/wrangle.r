@@ -2,11 +2,20 @@ set.seed(1234)
 library(dplyr)
 library(readr)
 library(lubridate)
+library(purrr)
 
-#import data
-cruz <- read_csv("D:/Google Drive/R/Projects/AC_runtime_project/Customers/cruz/cruz.csv", 
-                 skip = 2,
-                 col_names = c("index", "datetime", "amps"))
+setwd("D:/Google Drive/R/Projects/AC_runtime_project/customers_anon/data")
+
+read_plus <- function(flnm) {
+  read_csv(flnm) %>% 
+    mutate(filename = flnm)
+}
+
+tbl_with_sources <-
+  list.files(pattern = "*.csv", 
+             full.names = T) %>% 
+  map_df(~read_plus(.))
+
 
 #date range
 max(year(mdy_hms(cruz$datetime)))
