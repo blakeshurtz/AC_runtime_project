@@ -3,72 +3,86 @@ library(dplyr)
 library(readr)
 library(lubridate)
 library(purrr)
+library(readxl)
+library(stringr)
+library(tidyr)
+library(broom)
+
+suppressWarnings(expr)
 
 setwd("D:/Google Drive/R/Projects/AC_runtime_project/customers_anon/data")
 
+customer_data <- read_excel("customer_data.xlsx", 
+                            col_types = c("text", "date", "date", "numeric", "numeric", "numeric", "numeric"))
+
 read_plus <- function(flnm) {
   read_csv(flnm) %>% 
-    mutate(filename = flnm)
+    mutate(name = flnm)
 }
 
-tbl_with_sources <-
+d <-
   list.files(pattern = "*.csv", 
              full.names = T) %>% 
-  map_df(~read_plus(.))
+  map_df(~read_plus(.)) 
 
+d$name <- str_sub(d$name, start = 3, end = -5)
 
-#date range
-max(year(mdy_hms(cruz$datetime)))
-min((mdy_hms(cruz$datetime)))
-max((mdy_hms(cruz$datetime)))
-round(max((mdy_hms(cruz$datetime))) - min((mdy_hms(cruz$datetime))))
+customer_data$year <- map(customer_data$start_date, year)
+customer_data$days <- ymd(customer_data$end_date) - ymd(customer_data$start_date)
 
-#sampling frequency
-mdy_hms(cruz$datetime)[2] - mdy_hms(cruz$datetime)[1]
-sampling_rate = 1
-
+#sampling rate in original data
 #system capacity
-nominal_high_stage_capacity = 3
-actual_high_stage_capacity = nominal_high_stage_capacity * .8 #80% rule of thumb- check Manual S Excel file
+customer_data$low_stage_capacity = if_else(customer_data$staging != 2,
+                                           NA_real_,
+                                           customer_data$high_stage_capacity * .7)
 
-#on/off
-cruz$on <- if_else(cruz$amps < 2, 0, 1)
-cruz$staging <- if_else(cruz$on == 1, 1, 0)
-cruz$capacity <- if_else(cruz$on == 1, sampling_rate * actual_high_stage_capacity/60, 0)
-cruz$cycle_no <- with(rle(cruz$on), rep(seq_along(lengths), lengths)) 
+#join 
+d <- customer_data %>% 
+  select(name, staging, cooling_load, high_stage_capacity, low_stage_capacity, sampling_rate) %>% 
+  left_join(d, by = "name")
 
+###on to the data
+d$on <- if_else(d$amps < 2, 0, 1) #on/off
 
-###note, code below for two stage
-#check hoboware file for staging 
-nominal_low_stage_capacity = .7 * actual_high_stage_capacity #low stage capacity is 70% of high stage capacity
-actual_low_stage_capacity = nominal_low_stage_capacity * .8
+###kmeans model
+d <- d %>% 
+  group_by(name) %>% 
+  do(model = kmeans(.['amps'], 4, nstart = 50, iter.max = 10)) %>% 
+  ungroup() %>% group_by(name) %>% 
+  do(map_df(.$model, broom::tidy)) %>% ungroup() %>% 
+  select(name, x1) %>% 
+  arrange(name, x1) %>%
+  ungroup() %>% 
+  mutate(cluster = rep(c("c1", "c2", "c3", "c4"), length(unique(name)))) %>% 
+  spread(cluster, x1) %>% 
+  left_join(d, by = "name")
 
-#4 points gives the best stage split
-model <- kmeans(cruz$amps, 4, nstart = 50, iter.max = 10)
-thresholds <- sort(model$centers)
-thresholds
-
-#multi-var staging
-cruz$staging <- if_else(cruz$amps < 2, 0, 
-                        if_else(between(cruz$amps, 1, model$centers[3]), 1,
-                                if_else(cruz$amps > model$centers[3], 2, NULL)
-                        ))
+#multi-variate staging
+d$stage <- d %>% 
+  mutate(stage = if_else(amps < 2, 0, 
+                         if_else(amps > 2 & amps < c3 | staging == 1, 1, 
+                                 if_else(amps > c3, 2, NA_real_)))) %>% 
+  select(stage)
+d$stage <- as.numeric(unlist(d$stage))
+table(d$stage)
 
 #capacity accounting for sampling frequency
-cruz$capacity <- if_else(cruz$staging == 1, sampling_rate * actual_low_stage_capacity/60,
-                         if_else(cruz$staging == 2, sampling_rate * actual_high_stage_capacity/60, 0))
+d$capacity <- if_else(d$stage == 1, d$sampling_rate * d$low_stage_capacity/60,
+                     if_else(d$stage == 2, d$sampling_rate * d$high_stage_capacity/60, 0))
 
+#cycle_no
+d$cycle_no <- with(rle(d$on), rep(seq_along(lengths), lengths))
 
-summary <- cruz %>% 
-  group_by(cycle_no) %>% 
-  summarise(fccc = sum(capacity)/actual_high_stage_capacity,
-            runtime = sampling_rate * length(cycle_no),
-            avg_load = if_else(runtime < 60, fccc, fccc / (runtime/60))) %>% 
+table(d$cooling_load)
+
+summary <- d %>% 
+  group_by(name, cycle_no) %>% 
+  summarise(fccc = sum(capacity)/mean(high_stage_capacity),
+            runtime = mean(sampling_rate) * length(cycle_no)) %>% 
   filter(fccc != 0) %>% 
   arrange(desc(fccc))
-
 head(summary)
 
 quantile(summary$fccc, .9) #90% fccc
 
-write.csv(summary$fccc, file = "D:/Google Drive/R/Projects/AC_runtime_project/Customers/cruz/fccc.csv", row.names = FALSE)
+write.csv(summary$fccc, file = "D:/Google Drive/R/Projects/AC_runtime_project/Customers/d/fccc.csv", row.names = FALSE)
