@@ -39,7 +39,10 @@ retlev(mle, npy = 1, points = TRUE,
 abline(h = fccc_cl, col = "blue", lty = 2)
 pp(mle) 
 qq(mle)
-dens(mle, plot.kernel = FALSE, rug= TRUE) #solid line is empirical, dashed is GPD
+dens(mle, plot.kernel = FALSE, rug= TRUE,
+     main = "Density Plot for CCL", xlab = "CCL")
+abline(v = 1, col = "blue", lty = 2)#solid line is empirical, dashed is GPD
+mtext("Modeled Cooling Load", side=4, line=-9, cex.lab=1,las=2, col="blue")
 
 #inference for return level
 confint(mle, prob = 0.95) #doesn't work as well

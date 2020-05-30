@@ -27,6 +27,7 @@ print(rbind(mom, mlep, pwmu, pwmb, med, mdpd, mple, ad2r))
 
 #plain mle
 mle <- fitgpd(x, thresh = threshold, est = "mle")
+mle
 mle$pat
 mle$param
 
@@ -42,13 +43,13 @@ qq(mle)
 dens(mle, plot.kernel = FALSE, rug= TRUE) #solid line is empirical, dashed is GPD
 
 #inference for return level
-confint(mle, prob = 0.95) #doesn't work as well
+confint(mle, prob = 0.95, range = c(5,20)) #doesn't work as well
 gpd.firl(mle, prob = 0.95) 
 gpd.pfrl(mle, prob = 0.95, vert.lines = TRUE) 
 
 ##inference for scale
 gpd.fiscale(mle, conf = 0.95)
-gpd.pfscale(mle, conf = 0.8, range = c(.03, .10))
+gpd.pfscale(mle, conf = 0.8, range = c(.03, 1.5))
 confint(mle, "scale", 0.8); #better graph than gpd.pfscale
 
 #inference for shape
@@ -63,10 +64,20 @@ mc <- qgpd(mc, loc = threshold, scale = mle$param[[1]], shape = mle$param[[2]]) 
 mcmc <- fitmcgpd(mc, threshold, "log")
 '
 
+1/.65
+
 ###probability of fccc > 1
 pgpd(1, scale = mle$param[[1]], shape = mle$param[[2]], lower.tail = FALSE) #why 1?
 ##Evaluate probability of fccc_cl exceeding threshold. What is the target? 
 pgpd(fccc_cl, scale = mle$param[[1]], shape = mle$param[[2]], lower.tail = FALSE)
 ##Compute the quantile with non-exceedance probability 0.95:
-qgpd(.99, scale = mle$param[[1]], shape = mle$param[[2]], lower.tail = TRUE)
+qgpd(.95, scale = mle$param[[1]], shape = mle$param[[2]], lower.tail = TRUE)
 
+par(mfrow=c(2,2))
+pp(mle) 
+qq(mle)
+retlev(mle, npy = 1, points = TRUE,
+       col = "green", lty = 2, lwd = 2, ylab = "fccc", xlab = "# of Cycles")
+confint(mle, prob = 0.95, main = "Return Level Likelihood Plot") #doesn't work as well
+
+    
