@@ -45,7 +45,8 @@ ggplot() +
   geom_point(aes(ccl, ccdf), color = "red", data = d, size = 1, show.legend = FALSE) +
   geom_line(aes(ccl, ccdf), color = "blue", data = sim_ccl, size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
-  theme_bw() + xlim(0, 10) 
+  scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
+  theme_bw()
 
 ggsave(filename = "plots/indv_plot.jpeg", plot = last_plot(), device = "jpeg", dpi = 300,
        width = 430, height = 250, units = "mm")

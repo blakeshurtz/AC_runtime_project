@@ -69,9 +69,20 @@ ggplot() +
   geom_line(aes(ccl, ccdf),  col = "red", data = q_025, size = 1) +
   geom_line(aes(ccl, ccdf),  col = "red", data = q_975, size = 1) +
   coord_trans(y="log10", limx=c(0,20), limy=c(1e-3,1)) +
-  scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1)) +
+  scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 20, by = 1)), limits=c(0,20)) +
-  theme_bw()
+  geom_vline(xintercept = 1:3, lty = 2) +
+  annotate(geom = "text", x = 3.2, y = .8,
+           label = "P(X>1)=29%\nP(X>2)=9%\nP(X>3)=6%", 
+           hjust = 0, vjust = 1, size = 8) +
+  annotate(geom = "text", x = 7, y = .003,
+           label = "P(X>6.54)= 1%", 
+           hjust = 0, vjust = 1, size = 8) +
+  theme_bw() +
+  theme(text = element_text(size = 20)) +
+  geom_segment(mapping = aes(x = 0, xend=quantile(mean$ccl, c(.99)), y=.01, yend = .01), lty = 2, col = "black") +
+  geom_segment(mapping = aes(x = quantile(mean$ccl, c(.99)), xend=quantile(mean$ccl, c(.99)), y=0.01, yend = 0.001), lty = 2, col = "black") 
+
 
 ggsave(filename = "plots/mlm_plot.jpeg", plot = last_plot(), device = "jpeg", dpi = 300,
        width = 430, height = 250, units = "mm")
@@ -85,9 +96,12 @@ pgpd(1, mu = 0, xi = mean(d$k_mu), sigma = mean(d$sigma_mu))
 pgpd(1, mu = 0, xi = quantile(d$k_mu, 0.975), sigma = quantile(d$sigma_mu, 0.975))
 pgpd(1, mu = 0, xi = quantile(d$k_mu, 0.025), sigma = quantile(d$sigma_mu, 0.025))
 
-quantile(mean$ccl, c(.95))
-quantile(q_975$ccl, c(.95))
-quantile(q_025$ccl, c(.95))
+pgpd(2, mu = 0, xi = mean(d$k_mu), sigma = mean(d$sigma_mu))
+pgpd(3, mu = 0, xi = mean(d$k_mu), sigma = mean(d$sigma_mu))
+
+quantile(mean$ccl, c(.99))
+quantile(q_975$ccl, c(.99))
+quantile(q_025$ccl, c(.99))
 
 rm(d); rm(mean); rm(q_025); rm(q_975); rm(quantiles)
 rm(sim_ccl); rm(simulate_ml); rm(i)
