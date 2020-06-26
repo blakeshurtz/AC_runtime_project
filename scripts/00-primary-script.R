@@ -14,6 +14,7 @@ library(broom)
 library(extraDistr)
 library(rstan)
 library(shinystan)
+library(gridExtra)
 
 #load raw data, wrangle and create dataset "ccl.csv"
 source('scripts/01-create-data-set.r')
