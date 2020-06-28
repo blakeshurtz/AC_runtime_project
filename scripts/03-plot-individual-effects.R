@@ -49,7 +49,7 @@ g1 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_01", "building_02")), size = 1, show.legend = FALSE) +
   theme_bw() +
   facet_wrap(vars(name)) +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -60,7 +60,7 @@ g2 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_03", "building_04")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -72,7 +72,7 @@ g3 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_05", "building_06")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -83,7 +83,7 @@ g4 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_07", "building_08")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -94,7 +94,7 @@ g5 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_09", "building_10")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -105,7 +105,7 @@ g6 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_11", "building_12")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -116,7 +116,7 @@ g7 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_13", "building_14")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -127,7 +127,7 @@ g8 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_15", "building_16")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -138,7 +138,7 @@ g9 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_17", "building_18")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -149,7 +149,7 @@ g10 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_19", "building_20")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
@@ -160,7 +160,7 @@ g11 <- ggplot() +
   geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_21", "building_22")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20), axis.title=element_text(size=14)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
