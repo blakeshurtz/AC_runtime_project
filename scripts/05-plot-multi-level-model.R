@@ -79,22 +79,22 @@ ggplot() +
   coord_trans(y="log10", limx=c(0,20), limy=c(1e-3,1)) +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1), expand = c(0,0)) +
   scale_x_continuous(breaks=c(seq(from = 1, to = 20, by = 1)), limits=c(0,20), expand = c(0,0)) +
-  geom_segment(mapping = aes(x = 0, xend=1, y=1-pgpd(1, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), 
-                             yend = 1-pgpd(1, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu))), lty = 2, col = "black") +
-  geom_segment(mapping = aes(x = 1, xend=1, y=1-pgpd(1, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), yend = 0.001), lty = 2, col = "black")  +
-  geom_segment(mapping = aes(x = 0, xend=2, y=1-pgpd(2, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), 
-                             yend = 1-pgpd(2, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu))), lty = 2, col = "black") +
-  geom_segment(mapping = aes(x = 2, xend=2, y=1-pgpd(2, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), yend = 0.001), lty = 2, col = "black")  +
-  geom_segment(mapping = aes(x = 0, xend=3, y=1-pgpd(3, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), 
-                             yend = 1-pgpd(3, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu))), lty = 2, col = "black") +
-  geom_segment(mapping = aes(x = 3, xend=3, y=1-pgpd(3, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), yend = 0.001), lty = 2, col = "black")  +
-  annotate(geom = "text", x = 1, y = 1-pgpd(1, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)),
+  geom_segment(mapping = aes(x = 0, xend=1, y=1-pgpd(1, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), 
+                             yend = 1-pgpd(1, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu))), lty = 2, col = "black") +
+  geom_segment(mapping = aes(x = 1, xend=1, y=1-pgpd(1, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), yend = 0.001), lty = 2, col = "black")  +
+  geom_segment(mapping = aes(x = 0, xend=2, y=1-pgpd(2, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), 
+                             yend = 1-pgpd(2, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu))), lty = 2, col = "black") +
+  geom_segment(mapping = aes(x = 2, xend=2, y=1-pgpd(2, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), yend = 0.001), lty = 2, col = "black")  +
+  geom_segment(mapping = aes(x = 0, xend=3, y=1-pgpd(3, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), 
+                             yend = 1-pgpd(3, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu))), lty = 2, col = "black") +
+  geom_segment(mapping = aes(x = 3, xend=3, y=1-pgpd(3, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)), yend = 0.001), lty = 2, col = "black")  +
+  annotate(geom = "text", x = 1, y = 1-pgpd(1, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)),
            label = "P(CCL > 1) = 45%", 
            hjust = 0, vjust = 0, size = 6) +
-  annotate(geom = "text", x = 2, y = 1-pgpd(2, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)),
+  annotate(geom = "text", x = 2, y = 1-pgpd(2, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)),
            label = "P(CCL > 2) = 15%", 
            hjust = 0, vjust = 0, size = 6) +
-  annotate(geom = "text", x = 3, y = 1-pgpd(3, mu = 0, xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)),
+  annotate(geom = "text", x = 3, y = 1-pgpd(3, mu = mean(thresholds$threshold), xi = mean(samples$k_mu), sigma = mean(samples$sigma_mu)),
            label = "P(CCL > 3) = 6%", 
            hjust = 0, vjust = 0, size = 6) +
   annotate(geom = "text", x = mean$ccl[[which.min(abs(mean$ccdf - 0.01))]], y = .01,
