@@ -8,7 +8,8 @@ options(mc.cores = parallel::detectCores())
 #read in dataset
 d <- read_csv("data/ccl.csv")
 
-#read in thresholds
+#read in thresholds (note threshold determined using the POT package)
+#see the script "threshold_estimation.R" in dir "scripts/old & misc/"
 thresholds <- read_csv("data/customer-thresholds.csv")
 ymin = thresholds$threshold
 
