@@ -40,10 +40,13 @@ ccl_probs <- ccl_probs %>% group_by(name) %>% mutate(n = n(),
                                                  ccl = seq(from = 0, to = 10, by = 0.01)) %>% 
   arrange(name, desc(ccdf))
 
+#rename from customer ot buildings
+ccl_probs$name <- gsub('customer', 'building', ccl_probs$name)
+d$name <- gsub('customer', 'building', d$name)
 
 g1 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_01", "customer_02")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_01", "customer_02")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_01", "building_02")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_01", "building_02")), size = 1, show.legend = FALSE) +
   theme_bw() +
   facet_wrap(vars(name)) +
   theme(text = element_text(size = 20)) +
@@ -53,8 +56,8 @@ g1 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load")
 
 g2 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_03", "customer_04")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_03", "customer_04")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_03", "building_04")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_03", "building_04")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -65,8 +68,8 @@ g2 <- ggplot() +
 
 
 g3 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_05", "customer_06")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_05", "customer_06")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_05", "building_06")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_05", "building_06")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -76,8 +79,8 @@ g3 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load")
 
 g4 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_07", "customer_08")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_07", "customer_08")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_07", "building_08")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_07", "building_08")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -87,8 +90,8 @@ g4 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load")
 
 g5 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_09", "customer_10")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_09", "customer_10")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_09", "building_10")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_09", "building_10")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -98,8 +101,8 @@ g5 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load")
 
 g6 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_11", "customer_12")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_11", "customer_12")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_11", "building_12")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_11", "building_12")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -109,8 +112,8 @@ g6 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load") 
 
 g7 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_13", "customer_14")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_13", "customer_14")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_13", "building_14")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_13", "building_14")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -120,8 +123,8 @@ g7 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load") 
 
 g8 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_15", "customer_16")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_15", "customer_16")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_15", "building_16")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_15", "building_16")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -131,8 +134,8 @@ g8 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load")
 
 g9 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_17", "customer_18")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_17", "customer_18")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_17", "building_18")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_17", "building_18")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -142,8 +145,8 @@ g9 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load") 
 
 g10 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_19", "customer_20")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_19", "customer_20")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_19", "building_20")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_19", "building_20")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -153,8 +156,8 @@ g10 <- ggplot() +
   labs(y = "CCDF: 1 - P(X<x)", x = "Cyclical Cooling Load")
 
 g11 <- ggplot() + 
-  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("customer_21", "customer_22")), size = 1, show.legend = FALSE) +
-  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("customer_21", "customer_22")), size = 1, show.legend = FALSE) +
+  geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_21", "building_22")), size = 1, show.legend = FALSE) +
+  geom_line(aes(ccl, ccdf), color = "blue", data = subset(ccl_probs, name %in% c("building_21", "building_22")), size = 1, show.legend = FALSE) +
   facet_wrap(vars(name)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -167,7 +170,7 @@ g11 <- ggplot() +
 g <- arrangeGrob(g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, ncol = 1)
 
 ggsave(filename = "plots/indv_plot.jpeg", plot = g, device = "jpeg", dpi = 300,
-       width = 430, height = 1150, units = "mm")
+       width = 150, height = 750, units = "mm", limitsize = FALSE)
 
 rm(d); rm(params); 
 rm(ccl_probs); rm(thresholds); rm(i); rm(simulate_ccl);
