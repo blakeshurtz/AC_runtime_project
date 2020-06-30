@@ -107,7 +107,7 @@ ggplot() +
   scale_color_manual(values = c("Mean" = "blue", 
                                 "95% Interval" = "red",
                                 "50% Interval" = "green")) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load", color = "Quantile") + 
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load", color = "Quantile") + 
   theme(legend.position="bottom")
 
 ggsave(filename = "plots/mlm_plot.jpeg", plot = last_plot(), device = "jpeg", dpi = 300,

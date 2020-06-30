@@ -53,7 +53,7 @@ g1 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load")
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load")
 
 g2 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_03", "building_04")), size = 1, show.legend = FALSE) +
@@ -64,7 +64,7 @@ g2 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load")
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load")
 
 
 g3 <- ggplot() + 
@@ -76,7 +76,7 @@ g3 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load")
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load")
 
 g4 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_07", "building_08")), size = 1, show.legend = FALSE) +
@@ -87,7 +87,7 @@ g4 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load")
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load")
 
 g5 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_09", "building_10")), size = 1, show.legend = FALSE) +
@@ -98,7 +98,7 @@ g5 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load")
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load")
 
 g6 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_11", "building_12")), size = 1, show.legend = FALSE) +
@@ -109,7 +109,7 @@ g6 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load") 
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load") 
 
 g7 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_13", "building_14")), size = 1, show.legend = FALSE) +
@@ -120,7 +120,7 @@ g7 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load") 
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load") 
 
 g8 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_15", "building_16")), size = 1, show.legend = FALSE) +
@@ -131,7 +131,7 @@ g8 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load")
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load")
 
 g9 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_17", "building_18")), size = 1, show.legend = FALSE) +
@@ -142,7 +142,7 @@ g9 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load") 
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load") 
 
 g10 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_19", "building_20")), size = 1, show.legend = FALSE) +
@@ -153,7 +153,7 @@ g10 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load")
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load")
 
 g11 <- ggplot() + 
   geom_point(aes(ccl, ccdf), color = "red", data = subset(d, name %in% c("building_21", "building_22")), size = 1, show.legend = FALSE) +
@@ -164,7 +164,7 @@ g11 <- ggplot() +
   scale_x_continuous(breaks=c(seq(from = 1, to = 10, by = 1)), limits=c(0,10)) +
   coord_trans(y="log10") +
   scale_y_continuous(breaks=c(1e-3,1e-2,1e-1,1), limits=c(1e-3,1), labels = scales::percent_format(accuracy = 1)) +
-  labs(y = "CCDF: 1 - P(X < x)", x = "Cyclical Cooling Load") 
+  labs(y = "P(X > x)", x = "Cyclical Cooling Load") 
 
 
 g <- arrangeGrob(g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, ncol = 1)
